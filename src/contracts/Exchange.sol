@@ -50,8 +50,10 @@ contract Exchange {
     }
 
     function withdrawEther(uint _amount) public payable {
+        require(tokens[ETHER][msg.sender] >= _amount);
         tokens[ETHER][msg.sender] = tokens[ETHER][msg.sender].sub(_amount);
-        emit Withdraw(ETHER, msg.sender, tokens[ETHER][msg.sender], tokens[ETHER][msg.sender]);
+        msg.sender.transfer(_amount);
+        emit Withdraw(ETHER, msg.sender, _amount, tokens[ETHER][msg.sender]);
     }
 
     function depositToken(address _token, uint _amount) public {
@@ -63,6 +65,19 @@ contract Exchange {
         tokens[_token][msg.sender] = tokens[_token][msg.sender].add(_amount);
         // emit event
         emit Deposit(_token, msg.sender, _amount, tokens[_token][msg.sender]);
+    }
+
+    function withdrawToken(address _token, uint _amount) public {
+        // Don't allow Ether withdrawals
+        require(_token != ETHER);
+        // make sure there are sufficient tokens to withdraw
+        require(tokens[_token][msg.sender] >= _amount);
+        // withdraw Tokens from this contract
+        require(Token(_token).transfer(msg.sender, _amount));
+        // update tokens mapping by subtracting _amount from msg.sender balance
+        tokens[_token][msg.sender] = tokens[_token][msg.sender].sub(_amount);
+        // emit Withdraw event
+        emit Withdraw(_token, msg.sender, _amount, tokens[_token][msg.sender]);
     }
 }
 
