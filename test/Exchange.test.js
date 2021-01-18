@@ -209,14 +209,46 @@ contract('Exchange', ([deployer, feeAccount, user1]) => {
             })
 
             it('should revert for insufficient balances', async () => {
-                await exchange.withdrawToken(token.address, tokens(1000), { from: user1 })
+                await exchange.withdrawToken(token.address, tokens(100), { from: user1 })
                     .should.be.rejectedWith(EVM_REVERT)
             })
         })
-
-
     })
 
+    describe('checking balances', async () => {
+        beforeEach(async () => {
+            await exchange.depositEther({ from: user1, value: ether(1) })        
+        })
+        
+        it('returns user balance', async () => {
+            const result = await exchange.balanceOf(ETHER_ADDRESS, user1)
+            result.toString().should.equal(ether(1).toString())
+        })
+    })
+
+    describe('making orders', async() => {
+        let result
+
+        beforeEach(async () => {
+            result = await exchange.makeOrder(token.address, tokens(1), ETHER_ADDRESS, ether(1), { from: user1 })
+        })
+
+        it('tracks the newly created order', async () => {
+            const orderCount = await exchange.orderCount()
+            orderCount.toString().should.equal('1')
+        })
+
+        it('inspects the order properties', async () => {
+            const order = await exchange.orders('1')
+            order.id.toString().should.equal('1', 'id is corrrect')
+            order.user.toString().should.equal(user1, 'user is corrrect')
+            order.tokenGet.toString().should.equal(token.address, 'tokenGet is corrrect')
+            order.amountGet.toString().should.equal(tokens(1).toString(), 'amountGet is corrrect')
+            order.tokenGive.toString().should.equal(ETHER_ADDRESS, 'tokenGive is corrrect')
+            order.amountGive.toString().should.equal(ether(1).toString(), 'amountGive is corrrect')
+            order.timestamp.toString().length.should.be.at.least(1, 'timestamp is present')
+        })
+    })
 }) 
 
 
