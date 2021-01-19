@@ -14,8 +14,8 @@ import "./Token.sol";
 // [x] Deposit tokens
 // [x] Withdraw tokens
 // [x] Check balances
-// [ ] Make Order
-// [ ] Cancel order
+// [x] Make Order
+// [x] Cancel order
 // [ ] Fill Order
 // [ ] Charge fees
 
@@ -31,6 +31,8 @@ contract Exchange {
     // token address => deposit user address => token balances
     mapping (address => mapping(address => uint256)) public tokens;
     mapping (uint256 => _Order) public orders;
+    mapping (uint256 => bool) public orderCancelled;
+    mapping (uint256 => bool) public orderFilled;
 
     // Events
     event Deposit(address token, address user, uint256 amount, uint256 balance);
@@ -42,6 +44,27 @@ contract Exchange {
         uint256 amountGet, 
         address tokenGive, 
         uint256 amountGive,
+        uint256 timestamp
+    );
+
+    event Cancel(
+        uint256 id, 
+        address user, 
+        address tokenGet, 
+        uint256 amountGet, 
+        address tokenGive, 
+        uint256 amountGive,
+        uint256 timestamp
+    );
+
+    event Trade(
+        uint256 id, 
+        address user, 
+        address tokenGet, 
+        uint256 amountGet, 
+        address tokenGive, 
+        uint256 amountGive,
+        address userFill,
         uint256 timestamp
     );
 
@@ -136,6 +159,80 @@ contract Exchange {
                 now
             );
         }
+
+    function cancelOrder(uint256 _id) public {
+        _Order storage _order = orders[_id];
+        // must be "my" order
+        require(address(_order.user) == msg.sender);
+        // must be a valid order
+        require(orders[_id].id == _id);
+        // add the cancelled order to the mapping
+        orderCancelled[_id] = true;
+        emit Cancel(
+            _order.id, 
+            msg.sender, 
+            _order.tokenGet, 
+            _order.amountGet, 
+            _order.tokenGive, 
+            _order.amountGive, 
+            now
+        );
+    }
+
+    function fillOrder(uint256 _id) public {
+        require(_id <= orderCount && _id > 0);
+        require(!orderFilled[_id]);
+        require(!orderCancelled[_id]);
+        // fetch the order from storage
+        _Order storage _order = orders[_id];
+        _trade(
+            _order.id,
+            _order.user, 
+            _order.tokenGet, 
+            _order.amountGet, 
+            _order.tokenGive, 
+            _order.amountGive
+        );
+            // mark order as filled
+            orderFilled[_order.id] = true;
+    } 
+
+    function _trade(
+        uint256 _id, 
+        address _user,
+        address _tokenGet, 
+        uint256 _amountGet, 
+        address _tokenGive, 
+        uint256 _amountGive
+        ) internal {
+            // charge fee - fee is paid by order filler a.k.a. msg.sender
+            uint256 _feeAmount = _amountGet.mul(feePercent).div(100);
+            tokens[_tokenGive][msg.sender] == tokens[_tokenGive][msg.sender].sub(_feeAmount);
+
+
+            // execute trade (msg.sender is filling order, _user created the order):
+            // give tokenGet to buyer and pay the fee
+            tokens[_tokenGet][msg.sender] ==  tokens[_tokenGet][msg.sender].sub(_amountGet.add(_feeAmount)); 
+            // take tokenGet from seller
+            tokens[_tokenGet][_user] ==  tokens[_tokenGet][_user].add(_amountGet); 
+            // receive fee into feeAccount
+            tokens[_tokenGet][feeAccount] == tokens[_tokenGive][feeAccount].add(_feeAmount); 
+            // give tokenGive to seller
+            tokens[_tokenGive][_user] == tokens[_tokenGive][_user].sub(_amountGive); 
+            // take tokenGive from buyer
+            tokens[_tokenGive][msg.sender] == tokens[_tokenGive][msg.sender].add(_amountGive); 
+
+            emit Trade(
+                _id, 
+                _user, 
+                _tokenGet, 
+                _amountGet, 
+                _tokenGive, 
+                _amountGive,
+                msg.sender,
+                now
+            );
+    }
 }
 
 
