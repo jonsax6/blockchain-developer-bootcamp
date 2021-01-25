@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import App from './components/App.js';
-import configureStore from './store/configureStore';
-import 'bootstrap/dist/css/bootstrap.css';
-import * as serviceWorker from './serviceWorker';
+import App from './components/App.js'
+import configureStore from './store/configureStore'
+import 'bootstrap/dist/css/bootstrap.css'
+import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
   <Provider store={configureStore()}>
