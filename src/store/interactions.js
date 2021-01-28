@@ -4,7 +4,9 @@ import {
     web3AccountLoaded,
     tokenLoaded, 
     exchangeLoaded,
-    cancelledOrdersLoaded
+    cancelledOrdersLoaded,
+    filledOrdersLoaded,
+    allOrdersLoaded
 } from './actions'
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
@@ -67,6 +69,16 @@ import Exchange from '../abis/Exchange.json'
     dispatch(cancelledOrdersLoaded(cancelledOrders))  
   
     // fetch filled orders withe the "Trade" event stream
+    const tradeStream = await exchange.getPastEvents('Trade', { fromBlock: 0, toBlock: 'latest'})
+    // format trades stream
+    const filledOrders = tradeStream.map((event) => event.returnValues)
+    // add trades to redux store
+    dispatch(filledOrdersLoaded(filledOrders))
 
     // fetch all orders with the "Order" event stream
+    const orderStream = await exchange.getPastEvents('Order', { fromBlock: 0, toBlock: 'latest'})
+    // format order stream
+    const allOrders = orderStream.map((event) => event.returnValues)
+    // add open orders to redux store
+    dispatch(allOrdersLoaded(allOrders))
   }
