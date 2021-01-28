@@ -20,6 +20,50 @@ export const contractsLoadedSelector = createSelector(
   (tl, el) => (tl && el)
 )
 
+// Filled orders
+const filledOrdersLoaded = state => get(state, 'exchange.filledOrders.loaded', false)
+export const filledOrdersLoadedSelector = createSelector(filledOrdersLoaded, loaded => loaded)
+
+const filledOrders = state => get(state, 'exchange.filledOrders.data', [])
+export const filledOrdersSelector = createSelector(
+  filledOrders,
+  (orders) => {
+    // decorate the orders
+    orders = decorateFilledOrders(orders)
+
+    // sort orders by date descending for display
+    orders = orders.sort((a,b) => b.timestamp - a.timestamp)
+    console.log(orders)
+  }
+)
+
+const decorateFilledOrders = (orders) => {
+  return(
+    orders.map((order) => {
+      return order = decorateOrder(order)
+    })
+  )
+}
+
+const decorateOrder = (order) => {
+  let etherAmount
+  let tokenAmount
+
+  if(order.tokenGive == "0x0000000000000000000000000000000000000000") {
+    etherAmount = order.amountGive
+    tokenAmount = order.amountGet
+  } else {
+    etherAmount = order.amountGet
+    tokenAmount = order.amountGive
+  }
+
+  return({
+    ...order,
+    etherAmount: etherAmount,
+    tokenAmount: tokenAmount
+  })
+}
+
 // Cancelled orders
 const cancelledOrdersLoaded = state => get(state, 'exchange.cancelledOrders.loaded', false)
 export const cancelledOrdersLoadedSelector = createSelector(cancelledOrdersLoaded, loaded => loaded)

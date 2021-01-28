@@ -13,7 +13,6 @@ import Exchange from '../abis/Exchange.json'
 // import { ETHER_ADDRESS } from '../helpers'
 
   export const loadWeb3 = async (dispatch) => {
-    
     if(typeof window.ethereum!=='undefined'){
       const web3 = new Web3(window.ethereum)
       dispatch(web3Loaded(web3))
