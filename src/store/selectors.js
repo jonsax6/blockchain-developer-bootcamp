@@ -19,3 +19,7 @@ export const contractsLoadedSelector = createSelector(
   exchangeLoaded, 
   (tl, el) => (tl && el)
 )
+
+// Cancelled orders
+const cancelledOrdersLoaded = state => get(state, 'exchange.cancelledOrders.loaded', false)
+export const cancelledOrdersLoadedSelector = createSelector(cancelledOrdersLoaded, loaded => loaded)
