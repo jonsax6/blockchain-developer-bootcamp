@@ -18311,6 +18311,198 @@
     "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
   "networks": {
+    "42": {
+      "events": {
+        "0xdcbc1c05240f31ff3ad067ef1ee35ce4997762752e3a095284754544f4c709d7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "balance",
+              "type": "uint256"
+            }
+          ],
+          "name": "Deposit",
+          "type": "event"
+        },
+        "0xf341246adaac6f497bc2a656f546ab9e182111d630394f0c57c710a59a2cb567": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "balance",
+              "type": "uint256"
+            }
+          ],
+          "name": "Withdraw",
+          "type": "event"
+        },
+        "0x9d33853d43e3607b4cc01fdc78338ff2dca6fef7db9232dae6d3eb55fbc3b109": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "tokenGet",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amountGet",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "tokenGive",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amountGive",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "Order",
+          "type": "event"
+        },
+        "0x77de1da0be5f2d3b110d05c6694e5c4ff2d9da7cd23d84353ecf78c7b5acec61": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "tokenGet",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amountGet",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "tokenGive",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amountGive",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "Cancel",
+          "type": "event"
+        },
+        "0x0dddf4182dc0fc1a311cb75f049c97403c6b8a99cf6b2229a36e7c526acb3f81": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "tokenGet",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amountGet",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "tokenGive",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "amountGive",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "userFill",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "Trade",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x61f40D96b281A71DC4257018fF4C94e72BE4B72a",
+      "transactionHash": "0xca606c7bbb660a9f6c891b1d542ca2ad927c5785467e0d509494d708785af68e"
+    },
     "5777": {
       "events": {
         "0xdcbc1c05240f31ff3ad067ef1ee35ce4997762752e3a095284754544f4c709d7": {
@@ -18505,7 +18697,7 @@
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2021-01-25T20:09:34.231Z",
+  "updatedAt": "2021-03-18T21:31:09.295Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

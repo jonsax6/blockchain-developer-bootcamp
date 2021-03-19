@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Spinner from './Spinner'
-import { 
-  filledOrdersLoadedSelector, 
-  filledOrdersSelector 
+import {
+  filledOrdersLoadedSelector,
+  filledOrdersSelector
 } from '../store/selectors'
+import { RED, GREEN } from '../helpers'
 
 const showFilledOrders = (filledOrders) => {
   return(
@@ -24,11 +25,11 @@ const showFilledOrders = (filledOrders) => {
 
 class Trades extends Component {
   render() {
-    return(
+    return (
       <div className="vertical">
         <div className="card bg-dark text-white">
           <div className="card-header">
-          Trades
+            Trades
           </div>
           <div className="card-body">
             <table className="table table-dark table-sm small">
@@ -39,12 +40,11 @@ class Trades extends Component {
                   <th>DAPP/ETH</th>
                 </tr>
               </thead>
-              { this.props.filledOrdersLoaded ? showFilledOrders(this.props.filledOrders) : <Spinner type="table"/> } 
+              { this.props.filledOrdersLoaded ? showFilledOrders(this.props.filledOrders) : <Spinner type="table"/>}
             </table>
           </div>
         </div>
       </div>
-
     )
   }
 }
@@ -57,4 +57,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Trades)
-
