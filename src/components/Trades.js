@@ -5,7 +5,6 @@ import {
   filledOrdersLoadedSelector,
   filledOrdersSelector
 } from '../store/selectors'
-import { RED, GREEN } from '../helpers'
 
 const showFilledOrders = (filledOrders) => {
   return(

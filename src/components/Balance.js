@@ -19,7 +19,6 @@ import {
   tokenWithdrawAmountSelector,
 } from '../store/selectors'
 import { etherDepositAmountChanged, tokenDepositAmountChanged, etherWithdrawAmountChanged, tokenWithdrawAmountChanged } from '../store/actions'
-import { ether } from '../helpers'
 
 const showForm = (props) => {
   const {
@@ -71,7 +70,7 @@ const showForm = (props) => {
               required />
           </div>
           <div className="col-12 col-sm-auto pl-sm-0">
-            <button type="submit" className="btn btn-primary btn-block btn-sm">Deposit</button>
+            <Button type="submit" className="btn btn-primary btn-block btn-sm">Deposit</Button>
           </div>
         </form>
         <table className="table table-dark table-sm small">
@@ -97,7 +96,7 @@ const showForm = (props) => {
               required />
           </div>
           <div className="col-12 col-sm-auto pl-sm-0">
-            <button type="submit" className="btn btn-primary btn-block btn-sm">Deposit</button>
+            <Button type="submit" className="btn btn-primary btn-block btn-sm">Deposit</Button>
           </div>
         </form>
       </Tab>
@@ -132,7 +131,7 @@ const showForm = (props) => {
               required />
           </div>
           <div className="col-12 col-sm-auto pl-sm-0">
-            <button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</button>
+            <Button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</Button>
           </div>
         </form>
         <table className="table table-dark table-sm small">
@@ -158,7 +157,7 @@ const showForm = (props) => {
               required />
           </div>
           <div className="col-12 col-sm-auto pl-sm-0">
-            <button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</button>
+            <Button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</Button>
           </div>
         </form>
       </Tab>

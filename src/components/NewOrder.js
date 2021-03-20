@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Tabs, Tab } from 'react-bootstrap'
+import { Tabs, Tab, Button } from 'react-bootstrap'
 import Spinner from './Spinner'
 import { 
   exchangeSelector, 
@@ -12,7 +12,6 @@ import {
 } from '../store/selectors'
 import {
   buyOrderAmountChanged,
-  buyOrderMaking,
   buyOrderPriceChanged,
   sellOrderAmountChanged,
   sellOrderPriceChanged,
@@ -21,7 +20,6 @@ import {
   makeBuyOrder, 
   makeSellOrder,
 } from '../store/interactions'
-import { tokens } from '../helpers'
 
 const showForm = (props) => {
   const { 
@@ -66,7 +64,7 @@ const showForm = (props) => {
               />
             </div>
           </div>
-          <button type="submit" className="btn btn-primary btn-sm btn-block">Buy Order</button>
+          <Button type="submit" className="btn btn-primary btn-sm btn-block">Buy Order</Button>
           { showBuyTotal ? <small>Total: {buyOrder.amount * buyOrder.price} ETH</small> : null }
         </form>
       </Tab>
@@ -99,7 +97,7 @@ const showForm = (props) => {
               />
             </div>
           </div>
-          <button type="submit" className="btn btn-primary btn-sm btn-block">Sell Order</button>
+          <Button type="submit" className="btn btn-primary btn-sm btn-block">Sell Order</Button>
           { showSellTotal ? <small>Total: {sellOrder.amount * sellOrder.price} ETH</small> : null }
         </form>
       </Tab>

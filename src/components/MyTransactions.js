@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Tabs, Tab, Button } from 'react-bootstrap'
+import { Tabs, Tab } from 'react-bootstrap'
 import Spinner from './Spinner'
-import { cancelOrder, subscribeToEvent } from '../store/interactions'
+import { cancelOrder } from '../store/interactions'
 import {
   myOpenOrdersLoadedSelector,
   myOpenOrdersSelector,
@@ -12,7 +12,6 @@ import {
   accountSelector, 
   orderCancellingSelector
 } from '../store/selectors'
-import Exchange from '../abis/Exchange.json'
 
 const showMyFilledOrders = (props) => {
   const { myFilledOrders } = props

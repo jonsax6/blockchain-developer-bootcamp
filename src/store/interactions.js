@@ -24,8 +24,6 @@ import {
 import { ETHER_ADDRESS } from '../helpers'
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
-import { balancesLoadingSelector } from './selectors'
-
 
 export const loadWeb3 = (dispatch) => {
   const web3 = new Web3(window.ethereum)
