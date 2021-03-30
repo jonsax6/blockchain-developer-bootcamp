@@ -1,12 +1,27 @@
 export const chartOptions = {
   chart: {
     animations: { enabled: false },
-    toolbar: { show: false },
+    toolbar: {
+      show: true,
+      offsetX: 0,
+      offsetY: 0,
+      tools: {
+        download: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true | '<img src="/static/icons/reset.png" width="20">',
+        customIcons: []
+      },
+      autoSelected: 'zoom' 
+    },
     width: '100px'
   },
   tooltip: {
     enabled: true,
-    theme: false,
+    theme: 'dark',
     style: {
       fontSize: '12px',
       fontFamily: undefined
@@ -39,7 +54,7 @@ export const chartOptions = {
       show: true,
       style: {
           colors: '#fff',
-          fontSize: '8px',
+          fontSize: '10px',
           cssClass: 'apexcharts-xaxis-label',
       },
     },
@@ -51,7 +66,7 @@ export const chartOptions = {
       maxWidth: 160,
       style: {
         color: '#fff',
-        fontSize: '8px',
+        fontSize: '10px',
         cssClass: 'apexcharts-yaxis-label',
       },
       offsetX: 0,
